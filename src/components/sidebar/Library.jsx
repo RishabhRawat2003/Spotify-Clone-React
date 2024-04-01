@@ -66,7 +66,7 @@ function Library() {
                 toggle
                 ? data && data.length > 1 
                 ? data.map((items)=>(
-                    <Link key={items.id} className='w-full h-10 my-4 rounded-full flex justify-start items-center'>
+                    <Link to={`sidebarartiststracks/` + items.id} key={items.id} className='w-full h-10 my-4 rounded-full flex justify-start items-center'>
                         <img src={items.images[0].url} alt="img" className='object-cover w-14 h-14 rounded-full'/>
                         <div className='w-auto h-full mx-2 flex flex-col'>
                             <p className='text-xs text-white font-semibold'>{items.name}</p>
@@ -76,7 +76,7 @@ function Library() {
                 )): <div>Loading</div>
                 : data && data.length > 1 
                 ? data.map((items)=>(
-                    <Link key={items.id} className='w-full h-10 my-4 rounded-full flex justify-center items-center md:justify-start'>
+                    <Link to={`sidebarartiststracks/` + items.id} key={items.id} className='w-full h-10 my-4 rounded-full flex justify-center items-center md:justify-start'>
                         <img src={items.images[0].url} alt="img" className='object-cover w-16 h-16 rounded-full'/>
                         <div className='w-auto h-full mx-2 hidden md:flex md:flex-col'>
                             <p className='text-base text-white font-semibold'>{items.name}</p>
@@ -84,7 +84,7 @@ function Library() {
                         </div>
                     </Link>
                 ))
-                : <div>Loading</div>
+                : <div className='text-white'>Loading</div>
             }
         </div>
     )

@@ -97,8 +97,7 @@ export class ApiService {
         const data = await result.json();
         return data;
     }
-
-
+    
     getNavArtists = async (token) => {
 
         const result = await fetch("https://api.spotify.com/v1/artists?ids=2P9JaCtpbQSuZOgvtPrUJ8,2GoeZ0qOTt6kjsWW4eA6LS,1tqysapcCh1lWEAc9dIFpa,0oOet2f43PA68X5RxKobEy,7uIbLdzzSEqnX0Pkrb56cR,56SjZARoEvag3RoKWIb16j,4fEkbug6kZzzJ8eYX6Kbbp,0y59o4v8uw5crbN9M3JiL1,3fWcIRZlzhMl2YNACMvHui,76fuWYgIf3TVIopTs3vaJ6,7GgAwYJnBBFT1WogNWf0oj,36iDrP3UnCxsSH9LuSdkDj,0SWOtgI95g7oVrP9halrmP,61P6g4b3TgZ9m2caJlXS4K,24BYRlsS8uIO4jA71mJ4Js,07hzX8SH6CEg7B2yl4hoKs,4gdMJYnopf2nEUcanAwstx,5UdFr0GeO7jKIaNIJgwB36", {
@@ -109,19 +108,6 @@ export class ApiService {
         const data = await result.json();
         return data;
     }
-
-
-    getNavArtistsTracks = async (token, trackEndPoint) => {
-
-        const result = await fetch(`https://api.spotify.com/v1/artists/${trackEndPoint}/top-tracks?market=IN`, {
-            method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + token }
-        });
-
-        const data = await result.json();
-        return data;
-    }
-
 }
 
 const apiFunc = new ApiService()

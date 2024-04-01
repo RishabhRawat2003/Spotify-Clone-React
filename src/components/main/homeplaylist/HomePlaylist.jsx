@@ -31,7 +31,9 @@ function HomePlaylist() {
             {
                 data && data.length > 1
                     ? data.map((items) => (
-                        <Link key={items.id}
+                        <Link 
+                        to={`playliststracks/` + items.id}
+                        key={items.id}
                             id={items.href}
                             className={small ? 'flex rounded-md bg-slate-800 h-16 w-full hover:bg-slate-700 duration-200' : 'flex rounded-md bg-slate-800 h-16 w-80 hover:bg-slate-700 duration-200 lg:w-[300px]'}
                         >

@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom"
 import Main from "./components/"
+import './browserAppearance.css'
 
 function App() {
 

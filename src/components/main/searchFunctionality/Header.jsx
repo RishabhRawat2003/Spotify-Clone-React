@@ -3,11 +3,12 @@ import { IoSearch } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { FaRegBell } from 'react-icons/fa';
 function Header() {
+
     return (
         <header className='w-full h-16 rounded-t-md flex justify-between items-center bg-[#121212]'>
             <span className='group ml-2 h-10 w-64 flex justify-center items-center bg-gray-900 rounded-full hover:border-white hover:border-[1px] sm:ml-5 sm:h-12 sm:w-72 lg:w-80'>
                 <IoSearch size={20} className='text-gray-500 group-hover:text-white rounded-full' />
-                <input type="text" placeholder='What do you want to listen?' className='rounded-md h-9 w-48 bg-gray-900 text-sm px-2 outline-none text-white sm:w-52 lg:text-lg lg:w-64' />
+                <input type="text" id='search' placeholder='What do you want to listen?' className='rounded-md h-9 w-48 bg-gray-900 text-sm px-2 outline-none text-white sm:w-52 lg:text-lg lg:w-64' />
                 <RxCross2 size={20} className='text-gray-500 group-hover:text-white rounded-full cursor-pointer' />
             </span>
             <div className='w-auto h-full flex justify-center items-center gap-2 mr-2 md:mr-3'>

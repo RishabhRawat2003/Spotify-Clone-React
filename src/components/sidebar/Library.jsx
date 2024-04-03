@@ -24,7 +24,7 @@ function Library() {
 
 
     return (
-        <div className={toggle ? 'bg-[#121212] h-[334px] w-[170px] mx-auto mt-1 rounded-lg flex flex-col justify-start items-center border-[1px] border-slate-500 gap-2 overflow-y-scroll' : 'bg-[#121212] h-full w-16 mx-auto mt-1 rounded-lg flex flex-col justify-start items-center border-[1px] border-slate-500 overflow-y-scroll gap-2 md:border-none md:w-full'}>
+        <div className={toggle ? 'library bg-[#121212] h-[334px] w-[170px] mx-auto mt-1 rounded-lg flex flex-col justify-start items-center border-[1px] border-slate-500 gap-2 overflow-y-scroll' : 'library bg-[#121212] h-full w-16 mx-auto mt-1 rounded-lg flex flex-col justify-start items-center border-[1px] border-slate-500 overflow-y-scroll gap-2 md:border-none md:w-full'}>
             <div className={toggle ? 'group w-full h-10 my-1 flex justify-start items-center' : 'group w-full h-10 my-1 flex justify-start items-center'}>
                 <MdOutlineLibraryMusic className={toggle ? 'text-gray-400 stroke-gray-400 cursor-pointer ml-3 mr-2 group-hover:text-white' : 'text-gray-400 stroke-gray-400 cursor-pointer group-hover:text-white mx-5 mt-2'} size={30} />
                 <span className='text-gray-400 font-semibold hidden cursor-pointer group-hover:text-white text-xl md:block'>Your Library</span>

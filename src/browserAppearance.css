@@ -1,0 +1,36 @@
+.library::-webkit-scrollbar{
+    display: none;
+}
+.library{
+    scrollbar-width: none;
+}
+.home::-webkit-scrollbar{
+    display: none;
+}
+.home{
+    scrollbar-width: none;
+}
+.sidebarArtists::-webkit-scrollbar{
+    display: none;
+}
+.sidebarArtists{
+    scrollbar-width: none;
+}
+.homeArtists::-webkit-scrollbar{
+    display: none;
+}
+.homeArtists{
+    scrollbar-width: none;
+}
+.playlistTracks::-webkit-scrollbar{
+    display: none;
+}
+.playlistTracks{
+    scrollbar-width: none;
+}
+.search::-webkit-scrollbar{
+    display: none;
+}
+.search{
+    scrollbar-width: none;
+}

@@ -22,7 +22,7 @@ function SearchBody() {
                 {
                     data && data.length > 1
                         ? data.map((items) => (
-                            <Link key={items.id}
+                            <Link to={`genreplaylists/` + items.id} key={items.id}
                                 className='w-36 h-auto gap-1 flex flex-col sm:w-48 lg:w-56 2xl:w-64'
                             >
                                 <img src={items.icons[0].url} alt="image" className='object-cover w-full h-40 sm:h-48 lg:h-56 xl:h-60' />

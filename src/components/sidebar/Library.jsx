@@ -7,14 +7,14 @@ import apiFunc from '../../apifunctions/Apifunction'
 import { Link } from 'react-router-dom';
 
 function Library() {
-    const [data , setData] = useState([])
+    const [data, setData] = useState([])
     const toggle = useSelector((state) => state.sidebar.sidebarStatus)
 
     useEffect(() => {
         let token = apiFunc.getToken()
-        token.then((val)=>{
+        token.then((val) => {
             let sidebarArtists = apiFunc.getNavArtists(val)
-            sidebarArtists.then((val)=>{
+            sidebarArtists.then((val) => {
                 let artistList = val.artists
                 setData(artistList)
             })
@@ -47,44 +47,44 @@ function Library() {
             }
             {
                 toggle
-                    ? <div className='w-full flex h-10 cursor-pointer' >
+                    ? <Link to='likedsongs' className='w-full flex h-10 cursor-pointer' >
                         <img src="https://misc.scdn.co/liked-songs/liked-songs-64.png" alt="img" className='object-cover mx-2 rounded-md' />
                         <div className='h-full w-auto flex flex-col'>
                             <p className='text-white font-semibold text-sm'>Liked Songs</p>
                             <p className='text-gray-500 flex text-xs gap-0.5 items-center'><TiPin size={20} className='text-green-500' /> Playlist</p>
                         </div>
-                    </div>
-                    : <div className='w-full flex h-12 justify-center cursor-pointer mb-3 md:justify-start md:h-14' >
+                    </Link>
+                    : <Link to='likedsongs' className='w-full flex h-12 justify-center cursor-pointer mb-3 md:justify-start md:h-14' >
                         <img src="https://misc.scdn.co/liked-songs/liked-songs-64.png" alt="img" className='object-cover mx-2 mr-3 rounded-md' />
                         <div className='h-full w-auto hidden md:flex md:flex-col'>
                             <p className='text-white font-semibold text-lg'>Liked Songs</p>
                             <p className='text-gray-500 flex text-sm gap-0.5 items-center'><TiPin size={30} className='text-green-500' /> Playlist</p>
                         </div>
-                    </div>
+                    </Link>
             }
             {
                 toggle
-                ? data && data.length > 1 
-                ? data.map((items)=>(
-                    <Link to={`sidebarartiststracks/` + items.id} key={items.id} className='w-full h-10 my-4 rounded-full flex justify-start items-center'>
-                        <img src={items.images[0].url} alt="img" className='object-cover w-14 h-14 rounded-full'/>
-                        <div className='w-auto h-full mx-2 flex flex-col'>
-                            <p className='text-xs text-white font-semibold'>{items.name}</p>
-                            <p className='text-xs text-gray-500 font-semibold'>{items.type.toUpperCase()}</p>
-                        </div>
-                    </Link>
-                )): <div>Loading</div>
-                : data && data.length > 1 
-                ? data.map((items)=>(
-                    <Link to={`sidebarartiststracks/` + items.id} key={items.id} className='w-full h-10 my-4 rounded-full flex justify-center items-center md:justify-start'>
-                        <img src={items.images[0].url} alt="img" className='object-cover w-16 h-16 rounded-full'/>
-                        <div className='w-auto h-full mx-2 hidden md:flex md:flex-col'>
-                            <p className='text-base text-white font-semibold'>{items.name}</p>
-                            <p className='text-sm text-gray-500 font-semibold'>{items.type.toUpperCase()}</p>
-                        </div>
-                    </Link>
-                ))
-                : <div className='text-white'>Loading</div>
+                    ? data && data.length > 1
+                        ? data.map((items) => (
+                            <Link to={`sidebarartiststracks/` + items.id} key={items.id} className='w-full h-10 my-4 rounded-full flex justify-start items-center'>
+                                <img src={items.images[0].url} alt="img" className='object-cover w-14 h-14 rounded-full' />
+                                <div className='w-auto h-full mx-2 flex flex-col'>
+                                    <p className='text-xs text-white font-semibold'>{items.name}</p>
+                                    <p className='text-xs text-gray-500 font-semibold'>{items.type.toUpperCase()}</p>
+                                </div>
+                            </Link>
+                        )) : <div>Loading</div>
+                    : data && data.length > 1
+                        ? data.map((items) => (
+                            <Link to={`sidebarartiststracks/` + items.id} key={items.id} className='w-full h-10 my-4 rounded-full flex justify-center items-center md:justify-start'>
+                                <img src={items.images[0].url} alt="img" className='object-cover w-16 h-16 rounded-full' />
+                                <div className='w-auto h-full mx-2 hidden md:flex md:flex-col'>
+                                    <p className='text-base text-white font-semibold'>{items.name}</p>
+                                    <p className='text-sm text-gray-500 font-semibold'>{items.type.toUpperCase()}</p>
+                                </div>
+                            </Link>
+                        ))
+                        : <div className='text-white'>Loading</div>
             }
         </div>
     )

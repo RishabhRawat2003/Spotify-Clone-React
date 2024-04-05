@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -12,6 +12,7 @@ import ArtistsTracks from './components/main/homeartiststracks/ArtistsTracks.jsx
 import SidebarArtistTracks from './components/main/sidebarartists/SidebarArtistTracks.jsx'
 import SearchPlaylists from './components/main/searchFunctionality/SearchPlaylists.jsx'
 import SearchPlaylistsTracks from './components/main/searchFunctionality/SearchPlaylistsTracks.jsx'
+import LikedSongs from './components/sidebar/LikedSongs.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +24,7 @@ const router = createBrowserRouter(
       <Route path='sidebarartiststracks/:trackid' element={<SidebarArtistTracks />} />
       <Route path='search/genreplaylists/:playlistsid' element={<SearchPlaylists />} />
       <Route path='search/genreplaylists/:playlistsid/tracks/:tracksid' element={<SearchPlaylistsTracks />} />
-
+      <Route path='likedsongs' element={<LikedSongs />} />
     </Route>
   )
 )
@@ -34,5 +35,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

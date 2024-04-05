@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../header/Header'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import apiFunc from '../../../apifunctions/Apifunction'
 import Footer from '../footer/Footer'
 import { FaHeart } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
-
-
+import { toggleLikedSong } from '../../../store/LikedSlices'
 
 function ArtistsTracks() {
     const [data, setData] = useState([])
 
     let { tracks } = useParams()
     const toggle = useSelector((state) => state.sidebar.sidebarStatus)
+    const likeToggle = useSelector((state) => state.likeSong)
+    const dispatch = useDispatch()
 
     function Liked(id) {
         let target = document.getElementById(id)
         target.classList.toggle('text-green-500')
+        dispatch(toggleLikedSong(id))
     }
 
     useEffect(() => {
@@ -30,7 +32,19 @@ function ArtistsTracks() {
                 setData(trackList)
             })
         })
+        let local = JSON.parse(localStorage.getItem('likedsongsartiststracks'))
+        if (local && local.length > 0) {
+            local.map((items) => {
+                dispatch(toggleLikedSong(items))
+            })
+        }else {
+            localStorage.setItem('likedsongsartiststracks', JSON.stringify(likeToggle))
+        }
     }, [])
+
+    useEffect(() => {
+        localStorage.setItem('likedsongsartiststracks', JSON.stringify(likeToggle))
+    }, [likeToggle])
 
 
     return (
@@ -42,7 +56,7 @@ function ArtistsTracks() {
                         data && data.length > 1
                             ? data.map((items) => (
                                 items.preview_url ?
-                                    <div key={items.id} id={items.id} className='group h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 md:hover:bg-slate-800 duration-200 select-none cursor-pointer relative rounded-md lg:h-20'>
+                                    <div key={items.id} className='group h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 md:hover:bg-slate-800 duration-200 select-none cursor-pointer relative rounded-md lg:h-20'>
                                         <div className='h-full w-[80%] flex gap-3'>
                                             <img src={items.album.images[0].url} alt="image" className='object-cover rounded-l-md' />
                                             <div className='flex flex-col w-auto h-full'>
@@ -51,7 +65,7 @@ function ArtistsTracks() {
                                             </div>
                                         </div>
                                         <div className='h-full w-16 flex justify-center items-center md:w-24 lg:w-28 lg:justify-around'>
-                                            <p className='justify-center items-center z-30 hidden md:flex'><FaHeart size={20} id={items.name} onClick={() => Liked(items.name)} className='text-gray-500 cursor-pointer hover:text-green-500' /></p>
+                                            <p className='justify-center items-center z-30 hidden md:flex'><FaHeart size={20} id={items.id} onClick={() => Liked(items.id)} className='text-gray-500 cursor-pointer hover:text-green-500' /></p>
                                             <p className='h-9 w-9 bg-green-500 rounded-full justify-center items-center flex md:mx-2 md:h-12 md:w-12'><FaPlay size={20} className='text-white' /></p>
                                         </div>
                                     </div> : null

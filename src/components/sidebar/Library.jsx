@@ -54,8 +54,8 @@ function Library() {
                             <p className='text-gray-500 flex text-xs gap-0.5 items-center'><TiPin size={20} className='text-green-500' /> Playlist</p>
                         </div>
                     </Link>
-                    : <Link to='likedsongs' className='w-full flex h-12 justify-center cursor-pointer mb-3 md:justify-start md:h-14' >
-                        <img src="https://misc.scdn.co/liked-songs/liked-songs-64.png" alt="img" className='object-cover mx-2 mr-3 rounded-md' />
+                    : <Link to='likedsongs' className='w-full flex h-16 sm:h-12 justify-center cursor-pointer mb-3 md:justify-start md:h-14' >
+                        <img src="https://misc.scdn.co/liked-songs/liked-songs-64.png" alt="img" className='object-cover ml-3 sm:mx-2 mr-3 rounded-md' />
                         <div className='h-full w-auto hidden md:flex md:flex-col'>
                             <p className='text-white font-semibold text-lg'>Liked Songs</p>
                             <p className='text-gray-500 flex text-sm gap-0.5 items-center'><TiPin size={30} className='text-green-500' /> Playlist</p>

@@ -54,15 +54,15 @@ function PlaylistTracks() {
             data && data.length >= 1
               ? data.map((items) => (
                 items.track.preview_url ?
-                  <div key={items.track.id} className='group h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
-                    <div className='h-full w-[70%] flex gap-3'>
+                  <div key={items.track.id} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
+                    <div className='h-full w-full sm:w-[70%] flex gap-3'>
                       <img src={items.track.album.images[0].url} alt="image" className='object-cover rounded-l-md' />
                       <div className='flex flex-col w-auto h-full'>
                         <p className='text-white font-semibold text-xs my-1 md:text-sm lg:text-base 2xl:text-lg'>{items.track.name}</p>
                         <p className='text-gray-500 font-semibold text-xs lg:text-sm'>{items.track.artists.length >= 2 ? items.track.artists[0].name + ' , ' + items.track.artists[1].name : items.track.artists[0].name}</p>
                       </div>
                     </div>
-                    <div className='h-full w-16 flex justify-center items-center md:w-24 lg:w-28 lg:justify-around'>
+                    <div className='h-full w-16 hidden sm:flex justify-center items-center md:w-24 lg:w-28 lg:justify-around'>
                       <p className='justify-center items-center z-30 hidden md:flex'><FaHeart size={20} id={items.track.id} onClick={() => Liked(items.track.id)} className='text-gray-500 cursor-pointer hover:text-green-500' /></p>
                       <p className='h-9 w-9 bg-green-500 rounded-full justify-center items-center flex md:mx-2 md:h-12 md:w-12'><FaPlay size={20} className='text-white' /></p>
                     </div>

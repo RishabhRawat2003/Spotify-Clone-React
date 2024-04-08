@@ -11,6 +11,7 @@ function LikedSongs() {
     const [storageId, setStorageId] = useState([])
 
     const toggle = useSelector((state) => state.sidebar.sidebarStatus)
+    const user = useSelector((state) => state.userName.UserName)
 
     function unLiked(x) {
         let temp = [...storageId]
@@ -89,7 +90,7 @@ function LikedSongs() {
                     <div className='h-40 w-auto flex flex-col justify-end my-7 lg:h-60'>
                         <p className='text-white font-bold lg:text-xl xl:text-2xl'>Playlists</p>
                         <p className='text-white text-2xl sm:text-3xl md:text-5xl font-bold lg:text-7xl'>Liked Songs</p>
-                        <p className='text-white font-bold lg:text-xl xl:text-2xl'>(username) • {storageId.length} Songs</p>
+                        <p className='text-white font-bold lg:text-xl xl:text-2xl'>{user} • {storageId.length} Songs</p>
                     </div>
                 </div>
                 <div className='ml-2 mt-4 w-full h-auto flex justify-between'>

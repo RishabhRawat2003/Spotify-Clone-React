@@ -13,19 +13,23 @@ import SidebarArtistTracks from './components/main/sidebarartists/SidebarArtistT
 import SearchPlaylists from './components/main/searchFunctionality/SearchPlaylists.jsx'
 import SearchPlaylistsTracks from './components/main/searchFunctionality/SearchPlaylistsTracks.jsx'
 import LikedSongs from './components/sidebar/LikedSongs.jsx'
+import LoginPage from './components/main/login/LoginPage.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
-      <Route path='' element={<Home />} />
-      <Route path='Search' element={<Search />} />
-      <Route path='playliststracks/:id' element={<PlaylistTracks />} />
-      <Route path='artiststracks/:tracks' element={<ArtistsTracks />} />
-      <Route path='sidebarartiststracks/:trackid' element={<SidebarArtistTracks />} />
-      <Route path='search/genreplaylists/:playlistsid' element={<SearchPlaylists />} />
-      <Route path='search/genreplaylists/:playlistsid/tracks/:tracksid' element={<SearchPlaylistsTracks />} />
-      <Route path='likedsongs' element={<LikedSongs />} />
-    </Route>
+    <>
+      <Route path='/' element={<App />}>
+        <Route path='' element={<Home />} />
+        <Route path='Search' element={<Search />} />
+        <Route path='playliststracks/:id' element={<PlaylistTracks />} />
+        <Route path='artiststracks/:tracks' element={<ArtistsTracks />} />
+        <Route path='sidebarartiststracks/:trackid' element={<SidebarArtistTracks />} />
+        <Route path='search/genreplaylists/:playlistsid' element={<SearchPlaylists />} />
+        <Route path='search/genreplaylists/:playlistsid/tracks/:tracksid' element={<SearchPlaylistsTracks />} />
+        <Route path='likedsongs' element={<LikedSongs />} />
+      </Route>
+      <Route path='login' element={<LoginPage />} />
+    </>
   )
 )
 

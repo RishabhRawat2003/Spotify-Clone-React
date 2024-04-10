@@ -22,42 +22,9 @@ function LikedSongs() {
 
     useEffect(() => {
         let temp = []
-        let local = JSON.parse(localStorage.getItem('likedsongsartiststracks'))
+        let local = JSON.parse(localStorage.getItem('LikedSongs'))
         if (local && local.length > 0) {
             local.map((items) => {
-                if (temp.indexOf(items) === -1) {
-                    temp.push(items)
-                }
-                else {
-                    return
-                }
-            })
-        }
-        let local1 = JSON.parse(localStorage.getItem('likedsongsplayliststracks'))
-        if (local1 && local1.length > 0) {
-            local1.map((items) => {
-                if (temp.indexOf(items) === -1) {
-                    temp.push(items)
-                }
-                else {
-                    return
-                }
-            })
-        }
-        let local2 = JSON.parse(localStorage.getItem('likedsongssearchplayliststracks'))
-        if (local2 && local2.length > 0) {
-            local2.map((items) => {
-                if (temp.indexOf(items) === -1) {
-                    temp.push(items)
-                }
-                else {
-                    return
-                }
-            })
-        }
-        let local3 = JSON.parse(localStorage.getItem('likedsongssidebarartiststracks'))
-        if (local3 && local3.length > 0) {
-            local3.map((items) => {
                 if (temp.indexOf(items) === -1) {
                     temp.push(items)
                 }

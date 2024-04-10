@@ -7,6 +7,7 @@ import { FaHeart } from "react-icons/fa";
 import Footer from '../footer/Footer'
 import { FaPlay } from "react-icons/fa";
 import { toggleLikedSong } from '../../../store/LikedSlices'
+import { songPlayer } from '../../../store/SongSlices'
 
 function PlaylistTracks() {
   const [data, setData] = useState([])
@@ -16,6 +17,14 @@ function PlaylistTracks() {
   const likeToggle = useSelector((state) => state.likeSong)
   const user = useSelector((state) => state.userName.UserName)
   const dispatch = useDispatch()
+
+  function playSong(trackId) {
+    dispatch(songPlayer(trackId))
+  }
+
+  function loginAlert() {
+    alert('Please Login First')
+  }
 
   function Liked(id) {
     let target = document.getElementById(id)
@@ -32,18 +41,18 @@ function PlaylistTracks() {
         setData(val)
       })
     })
-    let local = JSON.parse(localStorage.getItem('likedsongsplayliststracks'))
+    let local = JSON.parse(localStorage.getItem('LikedSongs'))
     if (local && local.length >= 1) {
       local.map((items) => {
         dispatch(toggleLikedSong(items))
       })
     } else {
-      localStorage.setItem('likedsongsplayliststracks', JSON.stringify(likeToggle))
+      localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
     }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('likedsongsplayliststracks', JSON.stringify(likeToggle))
+    localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
   }, [likeToggle])
 
   if (user.length > 2) {
@@ -56,7 +65,7 @@ function PlaylistTracks() {
               data && data.length >= 1
                 ? data.map((items) => (
                   items.track.preview_url ?
-                    <div key={items.track.id} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
+                    <div key={items.track.id} onClick={() => playSong(items.track.id)} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
                       <div className='h-full w-full sm:w-[70%] flex gap-3'>
                         <img src={items.track.album.images[0].url} alt="image" className='object-cover rounded-l-md' />
                         <div className='flex flex-col w-auto h-full'>
@@ -78,7 +87,7 @@ function PlaylistTracks() {
       </div>
     )
   }
-  else{
+  else {
     return (
       <div className={toggle ? 'playlistTracks bg-[#121212] text-white rounded-md h-[98.7%] w-full flex flex-col mt-2 mr-1 ml-[84px] overflow-y-scroll' : 'playlistTracks bg-[#121212] rounded-md flex flex-col text-white h-[98.7%] w-full mt-2 mx-1 overflow-y-scroll'}>
         <div className='w-full h-auto'>
@@ -88,7 +97,7 @@ function PlaylistTracks() {
               data && data.length >= 1
                 ? data.map((items) => (
                   items.track.preview_url ?
-                    <div key={items.track.id} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
+                    <div key={items.track.id} onClick={loginAlert} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
                       <div className='h-full w-full sm:w-[70%] flex gap-3'>
                         <img src={items.track.album.images[0].url} alt="image" className='object-cover rounded-l-md' />
                         <div className='flex flex-col w-auto h-full'>

@@ -29,19 +29,19 @@ function HomePlaylist() {
                 }
             })
         })
-    },[])
+    }, [])
 
-    if(user.length >2){
+    if (user.length > 2) {
         return (
             <div className={small ? 'my-3 mx-3 flex flex-wrap h-auto gap-1 justify-center' : 'mt-7 mx-3 flex flex-wrap h-auto gap-1 justify-center lg:gap-3'}>
                 {
                     data && data.length > 1
                         ? data.map((items) => (
-                            <Link 
-                            to={`playliststracks/` + items.id}
-                            key={items.name}
-                            id={items.href}
-                            className={small ? 'flex rounded-md bg-slate-800 h-16 w-full hover:bg-slate-700 duration-200' : 'flex rounded-md bg-slate-800 h-16 w-80 hover:bg-slate-700 duration-200 lg:w-[300px]'}
+                            <Link
+                                to={`playliststracks/` + items.id}
+                                key={items.name}
+                                id={items.href}
+                                className={small ? 'flex rounded-md bg-slate-800 h-16 w-full hover:bg-slate-700 duration-200' : 'flex rounded-md bg-slate-800 h-16 w-80 hover:bg-slate-700 duration-200 lg:w-[300px]'}
                             >
                                 <img src={items.images[0].url} alt="Image" className='h-full w-16 object-cover rounded-l-md' />
                                 <div className='h-full w-full flex flex-col'>
@@ -55,17 +55,17 @@ function HomePlaylist() {
             </div>
         )
     }
-    else{
+    else {
         return (
             <div className={small ? 'my-3 mx-3 flex flex-wrap h-auto gap-1 justify-center' : 'mt-7 mx-3 flex flex-wrap h-auto gap-1 justify-center lg:gap-3'}>
                 {
                     dataNotUser && dataNotUser.length > 1
                         ? dataNotUser.map((items) => (
-                            <Link 
-                            to={`playliststracks/` + items.id}
-                            key={items.id}
+                            <Link
+                                to={`playliststracks/` + items.id}
+                                key={items.id}
                                 id={items.href}
-                                className={'flex my-2 mx-2 flex-col rounded-md bg-slate-800 h-80 w-60 hover:opacity-70 shadow-md shadow-gray-700 duration-200 lg:w-64'}
+                                className={'flex my-2 mx-2 flex-col rounded-md bg-slate-800 h-80 w-60 active:opacity-70 md:hover:opacity-70 shadow-md shadow-gray-700 duration-200 lg:w-64'}
                             >
                                 <img src={items.images[0].url} alt="Image" className='h-56 object-cover rounded-l-md' />
                                 <div className='h-full w-full flex flex-col mx-1'>

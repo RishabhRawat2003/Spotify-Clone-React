@@ -7,6 +7,8 @@ import Footer from '../footer/Footer'
 import { FaHeart } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { toggleLikedSong } from '../../../store/LikedSlices'
+import { songPlayer } from '../../../store/SongSlices'
+
 
 function ArtistsTracks() {
     const [data, setData] = useState([])
@@ -15,6 +17,14 @@ function ArtistsTracks() {
     const toggle = useSelector((state) => state.sidebar.sidebarStatus)
     const likeToggle = useSelector((state) => state.likeSong)
     const dispatch = useDispatch()
+
+    function playSong(trackId) {
+        dispatch(songPlayer(trackId))
+    }
+
+    function loginAlert() {
+        alert('Please Login First')
+    }
 
     function Liked(id) {
         let target = document.getElementById(id)
@@ -32,20 +42,21 @@ function ArtistsTracks() {
                 setData(trackList)
             })
         })
-        let local = JSON.parse(localStorage.getItem('likedsongsartiststracks'))
-        if (local && local.length > 0) {
+        let local = JSON.parse(localStorage.getItem('LikedSongs'))
+        if (local && local.length >= 1) {
             local.map((items) => {
                 dispatch(toggleLikedSong(items))
             })
-        }else {
-            localStorage.setItem('likedsongsartiststracks', JSON.stringify(likeToggle))
+        } else {
+            localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
         }
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('likedsongsartiststracks', JSON.stringify(likeToggle))
+        localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
     }, [likeToggle])
 
+    console.log(data);
 
     return (
         <div className={toggle ? 'homeArtists bg-[#121212] text-white rounded-md h-[98.7%] w-full flex flex-col mt-2 mr-1 ml-[84px] overflow-y-scroll' : 'homeArtists bg-[#121212] rounded-md flex flex-col text-white h-[98.7%] w-full mt-2 mx-1 overflow-y-scroll'}>
@@ -56,7 +67,7 @@ function ArtistsTracks() {
                         data && data.length > 1
                             ? data.map((items) => (
                                 items.preview_url ?
-                                    <div key={items.id} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 md:hover:bg-slate-800 duration-200 select-none cursor-pointer relative rounded-md lg:h-20'>
+                                    <div key={items.id} onClick={() => playSong(items.id)} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 md:hover:bg-slate-800 duration-200 select-none cursor-pointer relative rounded-md lg:h-20'>
                                         <div className='h-full w-full sm:w-[80%] flex gap-3'>
                                             <img src={items.album.images[0].url} alt="image" className='object-cover rounded-l-md' />
                                             <div className='flex flex-col w-auto h-full'>

@@ -7,6 +7,7 @@ import Footer from '../footer/Footer'
 import { FaHeart } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { toggleLikedSong } from '../../../store/LikedSlices'
+import { songPlayer } from '../../../store/SongSlices'
 
 
 function SidebarArtistTracks() {
@@ -17,11 +18,18 @@ function SidebarArtistTracks() {
     const likeToggle = useSelector((state) => state.likeSong)
     const dispatch = useDispatch()
 
+    function playSong(trackId) {
+        dispatch(songPlayer(trackId))
+    }
+
+    function loginAlert() {
+        alert('Please Login First')
+    }
+
     function Liked(id) {
         let target = document.getElementById(id)
         target.classList.toggle('text-green-500')
         dispatch(toggleLikedSong(id))
-
     }
 
     useEffect(() => {
@@ -35,18 +43,18 @@ function SidebarArtistTracks() {
                 setData(trackList)
             })
         })
-        let local = JSON.parse(localStorage.getItem('likedsongssidebarartiststracks'))
+        let local = JSON.parse(localStorage.getItem('LikedSongs'))
         if (local && local.length >= 1) {
             local.map((items) => {
                 dispatch(toggleLikedSong(items))
             })
         } else {
-            localStorage.setItem('likedsongssidebarartiststracks', JSON.stringify(likeToggle))
+            localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
         }
     }, [trackid])
 
     useEffect(() => {
-        localStorage.setItem('likedsongssidebarartiststracks', JSON.stringify(likeToggle))
+        localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
     }, [likeToggle])
 
     return (
@@ -58,11 +66,11 @@ function SidebarArtistTracks() {
                         data && data.length > 1
                             ? data.map((items) => (
                                 items.preview_url ?
-                                    <div key={items.id} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 md:hover:bg-slate-800 duration-200 select-none cursor-pointer relative rounded-md lg:h-20'>
+                                    <div key={items.id} onClick={() => playSong(items.id)} className='group h-20 sm:h-16 w-full flex justify-between my-2 bg-slate-900 active:bg-slate-800 md:hover:bg-slate-800 duration-200 select-none cursor-pointer relative rounded-md lg:h-20'>
                                         <div className='h-full w-full sm:w-[70%] flex gap-3'>
                                             <img src={items.album.images[0].url} alt="image" className='object-cover rounded-l-md' />
                                             <div className='flex flex-col w-auto h-full'>
-                                                <p className='text-white font-semibold text-xs my-1 md:text-sm lg:text-base 2xl:text-lg'>{items.name.slice(0,58)}</p>
+                                                <p className='text-white font-semibold text-xs my-1 md:text-sm lg:text-base 2xl:text-lg'>{items.name.slice(0, 58)}</p>
                                                 <p className='text-gray-500 font-semibold text-xs lg:text-sm'>{items.artists.length >= 2 ? items.artists[0].name + ' , ' + items.artists[1].name : items.artists[0].name}</p>
                                             </div>
                                         </div>

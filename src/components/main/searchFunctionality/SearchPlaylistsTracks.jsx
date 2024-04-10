@@ -7,6 +7,7 @@ import Footer from '../footer/Footer'
 import { FaHeart } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { toggleLikedSong } from '../../../store/LikedSlices'
+import { songPlayer } from '../../../store/SongSlices'
 
 
 function SearchPlaylistsTracks() {
@@ -17,7 +18,15 @@ function SearchPlaylistsTracks() {
         let target = document.getElementById(id)
         target.classList.toggle('text-green-500')
         dispatch(toggleLikedSong(id))
+    }
 
+    function loginAlert() {
+        alert('Please Login First')
+        console.log('hello');
+    }
+
+    function playSong(trackId) {
+        dispatch(songPlayer(trackId))
     }
 
     let { tracksid } = useParams()
@@ -35,20 +44,19 @@ function SearchPlaylistsTracks() {
                 setData(val)
             })
         })
-        let local = JSON.parse(localStorage.getItem('likedsongssearchplayliststracks'))
+        let local = JSON.parse(localStorage.getItem('LikedSongs'))
         if (local && local.length >= 1) {
             local.map((items) => {
                 dispatch(toggleLikedSong(items))
             })
         } else {
-            localStorage.setItem('likedsongssearchplayliststracks', JSON.stringify(likeToggle))
+            localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
         }
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('likedsongssearchplayliststracks', JSON.stringify(likeToggle))
+        localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
     }, [likeToggle])
-
 
     if (user.length > 2) {
         return (
@@ -60,7 +68,7 @@ function SearchPlaylistsTracks() {
                             data && data.length > 1
                                 ? data.map((items) => (
                                     items.track.preview_url
-                                        ? <div key={items.track.id} className='group h-20 sm:h-16 w-full flex justify-between my-2 z-10 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
+                                        ? <div key={items.track.id} onClick={() => playSong(items.track.id)} className='group h-20 sm:h-16 w-full flex justify-between my-2 z-10 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
                                             <div className='h-full w-full sm:w-[80%] flex gap-3'>
                                                 <img src={items.track.album.images[0].url} alt="image" className='object-cover rounded-l-md' />
                                                 <div className='flex flex-col w-auto h-full'>
@@ -92,7 +100,7 @@ function SearchPlaylistsTracks() {
                             data && data.length > 1
                                 ? data.map((items) => (
                                     items.track.preview_url
-                                        ? <div key={items.track.id} className='group h-20 sm:h-16 w-full flex justify-between my-2 z-10 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
+                                        ? <div key={items.track.id} onClick={loginAlert} className='group h-20 sm:h-16 w-full flex justify-between my-2 z-10 bg-slate-900 active:bg-slate-800 select-none md:hover:bg-slate-800 duration-200 cursor-pointer relative rounded-md lg:h-20'>
                                             <div className='h-full w-full sm:w-[80%] flex gap-3'>
                                                 <img src={items.track.album.images[0].url} alt="image" className='object-cover rounded-l-md' />
                                                 <div className='flex flex-col w-auto h-full'>

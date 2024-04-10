@@ -41,8 +41,8 @@ function Header() {
                 <div className='h-16 w-full flex justify-end items-center rounded-t-md sm:h-20'>
                     <div className='w-[350px] mx-auto h-full flex justify-end items-center sm:mx-4 sm:w-auto sm:gap-3'>
                         <div className='h-10 w-40 flex justify-between items-center md:w-48'>
-                            <p className='text-gray-400 font-semibold hover:text-white hover:scale-105 cursor-pointer'>Sign up</p>
-                            <Link to='login' className='bg-white p-2 font-semibold rounded-3xl px-4 text-black hover:scale-105 cursor-pointer md:px-7 md:p-3'>Log in</Link>
+                            <p className='text-gray-400 font-semibold active:text-white md:hover:text-white active:scale-105 md:hover:scale-105 cursor-pointer'>Sign up</p>
+                            <Link to='login' className='bg-white p-2 font-semibold rounded-3xl px-4 text-black active:scale-105 md:hover:scale-105 cursor-pointer md:px-7 md:p-3'>Log in</Link>
                         </div>
                     </div>
                 </div>

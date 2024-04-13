@@ -29,6 +29,7 @@ const router = createBrowserRouter(
         <Route path='likedsongs' element={<LikedSongs />} />
       </Route>
       <Route path='login' element={<LoginPage />} />
+      <Route path='playliststracks/:id/login' element={<LoginPage />} />
     </>
   )
 )

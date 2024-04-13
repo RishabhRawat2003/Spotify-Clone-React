@@ -56,7 +56,6 @@ function ArtistsTracks() {
         localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
     }, [likeToggle])
 
-    console.log(data);
 
     return (
         <div className={toggle ? 'homeArtists bg-[#121212] text-white rounded-md h-[98.7%] w-full flex flex-col mt-2 mr-1 ml-[84px] overflow-y-scroll' : 'homeArtists bg-[#121212] rounded-md flex flex-col text-white h-[98.7%] w-full mt-2 mx-1 overflow-y-scroll'}>

@@ -3,21 +3,33 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify } from '@fortawesome/free-brands-svg-icons'
 import { userLogin } from '../../../store/UserSlices'
 import { useDispatch } from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function LoginPage() {
 
     const [rememberToggle, setRememberToggle] = useState(true)
-    const [userNameId , setUserNameId] = useState('')
+    const [userNameId, setUserNameId] = useState('')
+    const [password, setPassword] = useState('')
     const dispatch = useDispatch()
     const navigate = useNavigate()
     function handleClick() {
         setRememberToggle(!rememberToggle)
     }
 
-    function handleSubmit(){
+    function handleSubmit() {
         dispatch(userLogin(userNameId))
-        navigate('/')
+        if (password.length > 2 && userNameId.length > 2) {
+            navigate('/')
+        } else {
+            if (password === '' && userNameId === '') {
+                alert('Please Enter Your Password and UserName !!')
+            }
+            else if (password === '') {
+                alert('Enter Your Password !!')
+            } else if (userNameId === '') {
+                alert('Enter Your UserName')
+            }
+        }
     }
 
     return (
@@ -59,11 +71,11 @@ function LoginPage() {
                         <label htmlFor="email" className='w-40'>
                             <span className='text-white font-bold'>Email or username</span>
                         </label>
-                        <input type="text" id='email' placeholder='Email or username' value={userNameId} onChange={(e)=>setUserNameId(e.target.value)} className='h-12 w-full my-2 text-white border-2 border-gray-500 px-3 bg-[#121212] hover:border-white outline-none focus:border-white' />
+                        <input type="text" id='email' placeholder='Email or username' value={userNameId} onChange={(e) => setUserNameId(e.target.value)} className='h-12 w-full my-2 text-white border-2 border-gray-500 px-3 bg-[#121212] hover:border-white outline-none focus:border-white' />
                         <label htmlFor="password" className='w-28 mt-4'>
                             <span className='text-white font-bold'>Password</span>
                         </label>
-                        <input type="password" id='password' placeholder='Password' className='h-12 w-full my-2 text-white border-2 border-gray-500 px-3 bg-[#121212] hover:border-white outline-none focus:border-white' />
+                        <input type="password" id='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} className='h-12 w-full my-2 text-white border-2 border-gray-500 px-3 bg-[#121212] hover:border-white outline-none focus:border-white' />
                         <p className='flex justify-between h-14 w-36 items-center'>
                             <span onClick={handleClick} id='remember' className={rememberToggle ? 'w-10 rounded-full h-5 bg-green-500 flex items-center justify-end duration-200' : 'w-10 rounded-full h-5 bg-gray-500 flex items-center justify-start duration-200'}>
                                 <span className='h-4 bg-black w-4 rounded-full mx-0.5'></span>

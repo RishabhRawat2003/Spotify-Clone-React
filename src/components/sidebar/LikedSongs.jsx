@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Header from '../main/header/Header'
 import apiFunc from '../../apifunctions/Apifunction'
 import { MdOutlineAccessTime } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
+import { songPlayer } from '../../store/SongSlices';
 
 function LikedSongs() {
 
@@ -12,12 +13,17 @@ function LikedSongs() {
 
     const toggle = useSelector((state) => state.sidebar.sidebarStatus)
     const user = useSelector((state) => state.userName.UserName)
+    const dispatch = useDispatch()
+
+    function playSong(trackId) {
+        dispatch(songPlayer(trackId))
+    }
 
     function unLiked(x) {
         let temp = [...storageId]
         temp.splice(x, 1)
         setStorageId(temp)
-        setData(data.filter((_, index) => index !== x))
+        localStorage.setItem('LikedSongs', JSON.stringify(temp))
     }
 
     useEffect(() => {
@@ -84,7 +90,7 @@ function LikedSongs() {
                         data && data.length >= 1
                             ? data.map((items, x) => (
                                 <li key={items.id} className='h-14 w-full gap-3 flex justify-between rounded-lg cursor-pointer hover:bg-slate-900'>
-                                    <div className='ml-1 flex lg:w-[66%] xl:w-[75vw]'>
+                                    <div onClick={() => playSong(items.id)} className='ml-1 flex lg:w-[66%] xl:w-[75vw]'>
                                         <div className='h-full flex w-[80%] xl:w-[58%] 2xl:w-[57%]'>
                                             <p className='flex justify-center items-center mr-3 text-gray-400 lg:text-base'>{x + 1}</p>
                                             <img src={items.album.images[0].url} alt="img" className='object-cover h-[95%] my-auto' />
@@ -93,8 +99,8 @@ function LikedSongs() {
                                                 <p className='text-gray-500 font-semibold text-xs ml-2 sm:text-sm lg:text-base'>{items.artists.length >= 2 ? items.artists[0].name + ' , ' + items.artists[1].name : items.artists[0].name}</p>
                                             </div>
                                         </div>
-                                        <div className='hidden h-full w-auto items-center lg:flex xl:w-[20%]'>
-                                            <p className='text-sm text-gray-400 font-semibold lg:text-base'>{items.album.name}</p>
+                                        <div className='hidden h-full w-auto lg:flex xl:w-[20%]'>
+                                            <p className='text-sm text-gray-400 font-semibold'>{items.album.name}</p>
                                         </div>
                                         <div className='hidden h-full w-auto items-center justify-center xl:flex'>
                                             <p className='text-sm text-gray-400 font-semibold lg:text-base'>{items.album.release_date}</p>

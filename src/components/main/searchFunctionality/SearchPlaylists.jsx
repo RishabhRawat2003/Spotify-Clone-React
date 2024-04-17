@@ -4,16 +4,22 @@ import { Link, useParams } from 'react-router-dom'
 import apiFunc from '../../../apifunctions/Apifunction'
 import Header from './Header'
 import Footer from '../footer/Footer'
+import { FaPlay } from "react-icons/fa";
+
 
 function SearchPlaylists() {
     const [data, setData] = useState([])
     const [list, setList] = useState([])
     const [description, setDesciption] = useState([])
+    const [hoverPlayIcon, setHoverPlayIcon] = useState('')
     const [extractedTexts, setExtractedTexts] = useState([])
 
     let { playlistsid } = useParams()
     const toggle = useSelector((state) => state.sidebar.sidebarStatus)
 
+    function playHoverIcon(id) {
+        setHoverPlayIcon(id)
+    }
 
     useEffect(() => {
         let token = apiFunc.getToken()
@@ -57,12 +63,16 @@ function SearchPlaylists() {
                         {
                             data && list.length >= 1
                                 ? list.map((items, x) => (
-                                    <Link to={`tracks/` + items.id} key={x} className='h-[300px] w-64 flex flex-col shadow-md shadow-gray-800 active:opacity-70 md:hover:opacity-70 mx-2 my-2 lg:mx-4 lg:my-4'>
+                                    <Link to={`tracks/` + items.id} key={x} onMouseEnter={() => playHoverIcon(items.href)}
+                                        onMouseLeave={() => setHoverPlayIcon('')} className='h-[300px] relative w-64 flex flex-col shadow-md shadow-gray-800 active:opacity-70 md:hover:opacity-70 mx-2 my-2 lg:mx-4 lg:my-4'>
                                         <img src={items.images[0].url} alt="image" className='w-[95%] object-cover h-52 mx-auto' />
                                         <p className='text-base font-semibold text-white mx-2'>{items.name}</p>
                                         {extractedTexts[x] && (
                                             <p className='text-gray-500 text-xs mx-2 my-1 overflow-hidden'>{extractedTexts[x]}</p>
                                         )}
+                                        {
+                                            items.href === hoverPlayIcon ? <p className='h-11 w-11 absolute bottom-24 right-3 duration-200 bg-green-500 rounded-full justify-center items-center flex'><FaPlay size={20} className='text-white' /></p> : null
+                                        }
                                     </Link>
                                 ))
                                 : <div className='text-white'>Loading Please Wait !!</div>

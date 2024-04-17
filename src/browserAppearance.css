@@ -1,36 +1,47 @@
-.library::-webkit-scrollbar{
+.library::-webkit-scrollbar {
     display: none;
 }
-.library{
+
+.library {
     scrollbar-width: none;
 }
-.home::-webkit-scrollbar{
+
+.home::-webkit-scrollbar {
     display: none;
 }
-.home{
+
+.home {
     scrollbar-width: none;
 }
-.sidebarArtists::-webkit-scrollbar{
+
+.sidebarArtists::-webkit-scrollbar {
     display: none;
 }
-.sidebarArtists{
+
+.sidebarArtists {
     scrollbar-width: none;
 }
-.homeArtists::-webkit-scrollbar{
+
+.homeArtists::-webkit-scrollbar {
     display: none;
 }
-.homeArtists{
+
+.homeArtists {
     scrollbar-width: none;
 }
-.playlistTracks::-webkit-scrollbar{
+
+.playlistTracks::-webkit-scrollbar {
     display: none;
 }
-.playlistTracks{
+
+.playlistTracks {
     scrollbar-width: none;
 }
-.search::-webkit-scrollbar{
+
+.search::-webkit-scrollbar {
     display: none;
 }
-.search{
+
+.search {
     scrollbar-width: none;
 }

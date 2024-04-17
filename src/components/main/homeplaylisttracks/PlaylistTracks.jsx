@@ -11,6 +11,7 @@ import { songPlayer } from '../../../store/SongSlices'
 
 function PlaylistTracks() {
   const [data, setData] = useState([])
+  const [localStorageAccess, setLocalStorageAccess] = useState([])
 
   let { id } = useParams()
   const toggle = useSelector((state) => state.sidebar.sidebarStatus)
@@ -19,7 +20,23 @@ function PlaylistTracks() {
   const dispatch = useDispatch()
 
   function playSong(trackId) {
-    dispatch(songPlayer(trackId))
+    let windWidth = window.innerWidth
+    if (windWidth <= 640) {
+      dispatch(songPlayer(trackId))
+    }
+    else {
+      return null
+    }
+  }
+
+  function playSongOnIcon(trackId) {
+    let windWidth = window.innerWidth
+    if (windWidth >= 640) {
+      dispatch(songPlayer(trackId))
+    }
+    else {
+      return null
+    }
   }
 
   function loginAlert() {
@@ -30,6 +47,11 @@ function PlaylistTracks() {
     let target = document.getElementById(id)
     target.classList.toggle('text-green-500')
     dispatch(toggleLikedSong(id))
+    if (target.classList.contains('text-green-500')) {
+      return null
+    } else {
+      target.classList.toggle('text-gray-500')
+    }
   }
 
   useEffect(() => {
@@ -42,6 +64,7 @@ function PlaylistTracks() {
       })
     })
     let local = JSON.parse(localStorage.getItem('LikedSongs'))
+    setLocalStorageAccess(local)
     if (local && local.length >= 1) {
       local.map((items) => {
         dispatch(toggleLikedSong(items))
@@ -74,8 +97,8 @@ function PlaylistTracks() {
                         </div>
                       </div>
                       <div className='h-full w-16 hidden sm:flex justify-center items-center md:w-24 lg:w-28 lg:justify-around'>
-                        <p className='justify-center items-center z-30 hidden md:flex'><FaHeart size={20} id={items.track.id} onClick={() => Liked(items.track.id)} className='text-gray-500 cursor-pointer hover:text-green-500' /></p>
-                        <p className='h-9 w-9 bg-green-500 rounded-full justify-center items-center flex md:mx-2 md:h-12 md:w-12'><FaPlay size={20} className='text-white' /></p>
+                        <p className='justify-center items-center z-30 hidden md:flex'><FaHeart size={20} id={items.track.id} onClick={() => Liked(items.track.id)} className={localStorageAccess && localStorageAccess.includes(items.track.id) ? 'text-green-500 cursor-pointer' : 'text-gray-500 cursor-pointer hover:text-green-500'} /></p>
+                        <p onClick={() => playSongOnIcon(items.track.id)} className='h-9 w-9 bg-green-500 rounded-full justify-center items-center flex md:mx-2 md:h-12 md:w-12'><FaPlay size={20} className='text-white' /></p>
                       </div>
                     </div> : null
                 ))

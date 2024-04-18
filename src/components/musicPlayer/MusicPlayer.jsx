@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import apiFunc from '../../apifunctions/Apifunction'
 import { FaHeart } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
@@ -8,12 +8,17 @@ import { FaForward } from "react-icons/fa";
 import { FaBackward } from "react-icons/fa";
 import { IoVolumeHigh } from "react-icons/io5";
 import { IoMdVolumeOff } from "react-icons/io";
+import { toggleLikedSong } from '../../store/LikedSlices';
 
 function MusicPlayer() {
     const [data, setData] = useState()
+    const [localStorageAccess, setLocalStorageAccess] = useState([])
     const [volume, setVolume] = useState(false)
     const [playPause, setPlayPause] = useState(false)
     const music = useSelector((state) => state.musicplayer.songId)
+    const likeToggle = useSelector((state) => state.likeSong)
+    const dispatch = useDispatch()
+
 
     function playSong() {
         let player = document.querySelector('#song')
@@ -106,6 +111,32 @@ function MusicPlayer() {
         }, 50);
     }
 
+    function Liked(id) {
+        let target = document.getElementById(id)
+        target.classList.toggle('text-green-500', 'text-gray-500')
+        dispatch(toggleLikedSong(id))
+        if (target.classList.contains('text-green-500')) {
+            return null
+        } else {
+            target.classList.toggle('text-gray-500')
+        }
+    }
+
+    useEffect(() => {
+        let local = JSON.parse(localStorage.getItem('LikedSongs'))
+        setLocalStorageAccess(local)
+        if (local && local.length >= 1) {
+            local.map((items) => {
+                dispatch(toggleLikedSong(items))
+            })
+        } else {
+            localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
+    }, [likeToggle])
 
     useEffect(() => {
         if (music.length > 2) {
@@ -162,7 +193,7 @@ function MusicPlayer() {
                             <input type="range" onClick={volumeClickHandle} onChange={volumeChangeHandle} id='volume' min={0} max={1} step={0.1} className='cursor-pointer w-[90%] mr-2 lg:w-[60%] xl:w-[40%]' />
                         </div>
                         <div className='h-full flex w-[25%] px-1 items-center justify-between sm:hidden'>
-                            <div className='mx-1'><FaHeart size={25} className='text-white active:text-green-500 cursor-pointer md:hover:text-green-500' /></div>
+                            <div className='mx-1'><FaHeart size={25} onClick={() => Liked(data.id)} className={localStorageAccess && localStorageAccess.includes(data.id) ? 'text-green-500 cursor-pointer' : 'text-gray-500 cursor-pointer active:text-green-500'} /></div>
                             <div className='mr-3' onClick={stopPlaySong} id='playPause'>{playPause ? <FaPlay size={25} className='text-white cursor-pointer' /> : <FaPause size={30} className='text-white cursor-pointer' />}</div>
                             <audio src={data.preview_url} id='song' className='hidden'></audio>
                             <input type="range" value="0" onChange={changeTime} onLoadedMetadata={onload} max='30' id='range' className="w-auto h-1 absolute hidden left-0 bg-gray-600 rounded cursor-pointer mx-[5%]" />

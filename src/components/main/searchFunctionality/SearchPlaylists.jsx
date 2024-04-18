@@ -5,7 +5,7 @@ import apiFunc from '../../../apifunctions/Apifunction'
 import Header from './Header'
 import Footer from '../footer/Footer'
 import { FaPlay } from "react-icons/fa";
-
+import GenrePlaylistLoading from '../loading/GenrePlaylistLoading'
 
 function SearchPlaylists() {
     const [data, setData] = useState([])
@@ -75,7 +75,7 @@ function SearchPlaylists() {
                                         }
                                     </Link>
                                 ))
-                                : <div className='text-white'>Loading Please Wait !!</div>
+                                : <GenrePlaylistLoading loadingCard='12' />
                         }
                     </div>
                 </div>

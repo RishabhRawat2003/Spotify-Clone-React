@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import apiFunc from '../../../apifunctions/Apifunction'
 import { Link } from 'react-router-dom'
+import GenreLoading from '../loading/GenreLoading'
+
 function SearchBody() {
 
     const [data, setData] = useState([])
@@ -29,7 +31,7 @@ function SearchBody() {
                                 <p className='text-sm mx-auto font-semibold my-1 sm:text-base lg:text-lg'>{items.name}</p>
                             </Link>
                         ))
-                        : <div>Loading Please Wait!!</div>
+                        : <GenreLoading loadingCard='12'/>
                 }
             </div>
         </>

@@ -3,13 +3,15 @@ import apiFunc from '../../../apifunctions/Apifunction'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { FaPlay } from "react-icons/fa";
-
+import PlaylistLoading from '../loading/PlaylistLoading';
+import PlaylistLoading2 from '../loading/PlaylistLoading2';
 
 function HomePlaylist() {
     const [data, setData] = useState([])
     const [dataNotUser, setDataNotUser] = useState([])
     const [small, setSmall] = useState(false)
     const [hoverPlayIcon, setHoverPlayIcon] = useState('')
+    const [noOfCards, setNoOfCards] = useState('')
     const user = useSelector((state) => state.userName.UserName)
 
     function playHoverIcon(id) {
@@ -17,6 +19,13 @@ function HomePlaylist() {
     }
 
     useEffect(() => {
+        let smallSize = document.firstElementChild.clientWidth
+        if (smallSize < 932) {
+            setNoOfCards(4)
+        }
+        else {
+            setNoOfCards(8)
+        }
         const getToken = apiFunc.getToken()
         getToken.then((val) => {
             let playlists = apiFunc.getPlaylists(val)
@@ -24,11 +33,13 @@ function HomePlaylist() {
                 let small = document.firstElementChild.clientWidth
                 setDataNotUser(val.playlists.items.slice(0, 20))
                 if (small < 932) {
+                    setNoOfCards(4)
                     let list = val.playlists.items.slice(0, 4)
                     setData(list)
                     setSmall(true)
                 }
                 else {
+                    setNoOfCards(8)
                     let list = val.playlists.items.slice(0, 8)
                     setData(list)
                     setSmall(false)
@@ -48,7 +59,7 @@ function HomePlaylist() {
                                 key={items.name}
                                 id={items.href}
                                 onMouseEnter={() => playHoverIcon(items.href)}
-                                onMouseLeave={()=>setHoverPlayIcon('')}
+                                onMouseLeave={() => setHoverPlayIcon('')}
                                 className={small ? 'flex rounded-md bg-slate-800 h-16 relative w-full hover:bg-slate-700 duration-200' : 'flex relative rounded-md bg-slate-800 h-16 w-80 hover:bg-slate-700 duration-200 lg:w-[300px]'}
                             >
                                 <img src={items.images[0].url} alt="Image" className='h-full w-16 object-cover rounded-l-md' />
@@ -61,7 +72,7 @@ function HomePlaylist() {
                                 }
                             </Link>
                         ))
-                        : <div>Loading Please Wait!!</div>
+                        : <PlaylistLoading2 loadingCard={noOfCards} smallSize={small} />
                 }
             </div>
         )
@@ -77,7 +88,7 @@ function HomePlaylist() {
                                 key={items.id}
                                 id={items.href}
                                 onMouseEnter={() => playHoverIcon(items.href)}
-                                onMouseLeave={()=>setHoverPlayIcon('')}
+                                onMouseLeave={() => setHoverPlayIcon('')}
                                 className={'flex my-2 mx-2 flex-col rounded-md bg-slate-800 relative h-80 w-60 active:opacity-70 md:hover:opacity-70 shadow-md shadow-gray-700 duration-200 lg:w-64'}
                             >
                                 <img src={items.images[0].url} alt="Image" className='h-56 object-cover rounded-l-md' />
@@ -90,7 +101,7 @@ function HomePlaylist() {
                                 }
                             </Link>
                         ))
-                        : <div>Loading Please Wait!!</div>
+                        : <PlaylistLoading loadingCard='12' />
                 }
             </div>
         )

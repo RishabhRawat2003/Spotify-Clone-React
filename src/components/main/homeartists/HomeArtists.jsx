@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import apiFunc from '../../../apifunctions/Apifunction'
 import { Link } from 'react-router-dom'
-
+import ArtistsLoading from '../loading/ArtistsLoading'
 function HomeArtists() {
 
     const [data, setData] = useState([])
@@ -30,7 +30,7 @@ function HomeArtists() {
                             <p className='text-xs text-gray-400 mb-3 mx-auto md:text-sm xl:text-base'>{items.type.toUpperCase()}</p>
                         </Link>
                     ))
-                    : <div className='text-white'>Loading Please Wait!!</div>
+                    : <ArtistsLoading loadingCard='12' />
             }
         </div>
     )

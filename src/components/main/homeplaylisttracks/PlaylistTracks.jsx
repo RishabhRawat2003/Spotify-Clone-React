@@ -8,6 +8,7 @@ import Footer from '../footer/Footer'
 import { FaPlay } from "react-icons/fa";
 import { toggleLikedSong } from '../../../store/LikedSlices'
 import { songPlayer } from '../../../store/SongSlices'
+import SongsLoading from '../loading/SongsLoading'
 
 function PlaylistTracks() {
   const [data, setData] = useState([])
@@ -102,7 +103,7 @@ function PlaylistTracks() {
                       </div>
                     </div> : null
                 ))
-                : <div className='text-white'>Loading Please Wait!!</div>
+                : <SongsLoading loadingCard='12' />
             }
           </div>
           <Footer />
@@ -133,7 +134,7 @@ function PlaylistTracks() {
                       </div>
                     </div> : null
                 ))
-                : <div className='text-white'>Loading Please Wait!!</div>
+                : <SongsLoading loadingCard='12' />
             }
           </div>
           <Footer />

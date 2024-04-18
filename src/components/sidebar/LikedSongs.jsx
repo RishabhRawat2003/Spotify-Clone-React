@@ -26,6 +26,13 @@ function LikedSongs() {
         localStorage.setItem('LikedSongs', JSON.stringify(temp))
     }
 
+    function formatDuration(duration_ms) {
+        const totalSeconds = duration_ms / 1000;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = Math.floor(totalSeconds % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+
     useEffect(() => {
         let temp = []
         let local = JSON.parse(localStorage.getItem('LikedSongs'))
@@ -107,7 +114,7 @@ function LikedSongs() {
                                         </div>
                                     </div>
                                     <div className='h-full flex flex-col w-auto justify-around mr-1 sm:flex-row-reverse sm:items-center'>
-                                        <p className='text-gray-400 text-xs sm:flex-1 sm:text-sm lg:text-base'>2:19</p>
+                                        <p className='text-gray-400 text-xs sm:flex-1 sm:text-sm lg:text-base'>{formatDuration(items.duration_ms)}</p>
                                         <p className='justify-center items-center z-30 sm:mr-10'><FaHeart size={20} onClick={() => unLiked(x)} className='cursor-pointer text-green-500' /></p>
                                     </div>
                                 </li>

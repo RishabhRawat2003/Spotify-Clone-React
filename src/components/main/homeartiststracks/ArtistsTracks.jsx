@@ -8,7 +8,7 @@ import { FaHeart } from "react-icons/fa";
 import { FaPlay } from "react-icons/fa";
 import { toggleLikedSong } from '../../../store/LikedSlices'
 import { songPlayer } from '../../../store/SongSlices'
-
+import SongsLoading from '../loading/SongsLoading'
 
 function ArtistsTracks() {
     const [data, setData] = useState([])
@@ -99,7 +99,7 @@ function ArtistsTracks() {
                                         </div>
                                     </div> : null
                             ))
-                            : <div className='text-white'>Loading Please Wait!!</div>
+                            : <SongsLoading loadingCard='12' />
                     }
                 </div>
                 <Footer />

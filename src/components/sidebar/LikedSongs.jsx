@@ -96,7 +96,7 @@ function LikedSongs() {
                     {
                         data && data.length >= 1
                             ? data.map((items, x) => (
-                                <li key={items.id} className='h-14 w-full gap-3 flex justify-between rounded-lg cursor-pointer hover:bg-slate-900'>
+                                <li key={items.id} className='h-14 w-full gap-3 flex justify-between rounded-lg cursor-pointer active:bg-slate-900 sm:hover:bg-slate-900'>
                                     <div onClick={() => playSong(items.id)} className='ml-1 flex lg:w-[66%] xl:w-[75vw]'>
                                         <div className='h-full flex w-[80%] xl:w-[58%] 2xl:w-[57%]'>
                                             <p className='flex justify-center items-center mr-3 text-gray-400 lg:text-base'>{x + 1}</p>

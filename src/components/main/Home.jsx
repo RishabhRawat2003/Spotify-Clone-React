@@ -11,6 +11,14 @@ function Home() {
   const toggle = useSelector((state) => state.sidebar.sidebarStatus)
   const user = useSelector((state) => state.userName.UserName)
 
+  if (user.length === 0) {
+    let local = JSON.parse(localStorage.getItem('LikedSongs'))
+    if(local.length >=0){
+      let a = []
+      localStorage.setItem('LikedSongs',JSON.stringify(a))
+    }
+  }
+
 
   useEffect(() => {
     function greet() {
@@ -28,10 +36,10 @@ function Home() {
     greet()
   }, [])
 
-  if(user.length >2){
+  if (user.length > 2) {
     return (
       <div className={toggle ? 'home bg-[#121212] text-white rounded-md h-[98.7%] w-full flex flex-col mt-2 mr-1 ml-[84px] overflow-y-scroll' : 'home bg-[#121212] rounded-md flex flex-col text-white h-[98.7%] w-full mt-2 mx-1 overflow-y-scroll'}>
-        <div className='w-full h-auto'>
+        <div className='w-full h-auto relative'>
           <Header />
           <h1 className='my-3 mx-4 text-xl text-white font-bold sm:text-2xl md:text-3xl xl:text-4xl xl:mx-5'>{greetings}</h1>
           <HomePlaylist />
@@ -41,7 +49,7 @@ function Home() {
         </div>
       </div>
     )
-  }else{
+  } else {
     return (
       <div className={toggle ? 'home bg-[#121212] text-white rounded-md h-[98.7%] w-full flex flex-col mt-2 mr-1 ml-[84px] overflow-y-scroll' : 'home bg-[#121212] rounded-md flex flex-col text-white h-[98.7%] w-full mt-2 mx-1 overflow-y-scroll'}>
         <div className='w-full h-auto'>
@@ -54,7 +62,7 @@ function Home() {
     )
   }
 
-  
+
 }
 
 export default Home

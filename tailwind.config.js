@@ -5,7 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        comingup: {
+          '0%': { height: '15vh' },
+          '100%': { height: '80%' }
+        },
+      },
+    },
   },
   plugins: [],
 }

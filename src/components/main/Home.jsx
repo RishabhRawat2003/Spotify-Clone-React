@@ -17,6 +17,8 @@ function Home() {
       let a = []
       localStorage.setItem('LikedSongs',JSON.stringify(a))
     }
+  }else{
+    return null
   }
 
 

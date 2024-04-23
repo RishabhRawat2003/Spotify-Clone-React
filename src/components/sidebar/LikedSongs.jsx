@@ -7,7 +7,6 @@ import { FaHeart } from "react-icons/fa";
 import { songPlayer } from '../../store/SongSlices';
 
 function LikedSongs() {
-
     const [data, setData] = useState([])
     const [storageId, setStorageId] = useState([])
 
@@ -96,12 +95,12 @@ function LikedSongs() {
                     {
                         data && data.length >= 1
                             ? data.map((items, x) => (
-                                <li key={items.id} className='h-14 w-full gap-3 flex justify-between rounded-lg cursor-pointer active:bg-slate-900 sm:hover:bg-slate-900'>
+                                <li key={items.id} className='h-16 w-full gap-3 flex justify-between rounded-lg cursor-pointer active:bg-slate-900 sm:hover:bg-slate-900'>
                                     <div onClick={() => playSong(items.id)} className='ml-1 flex lg:w-[66%] xl:w-[75vw]'>
                                         <div className='h-full flex w-[80%] xl:w-[58%] 2xl:w-[57%]'>
                                             <p className='flex justify-center items-center mr-3 text-gray-400 lg:text-base'>{x + 1}</p>
                                             <img src={items.album.images[0].url} alt="img" className='object-cover h-[95%] my-auto' />
-                                            <div className='flex flex-col'>
+                                            <div className='flex flex-col overflow-hidden'>
                                                 <p className='text-white text-xs ml-2 font-semibold sm:text-sm lg:text-base'>{items.name}</p>
                                                 <p className='text-gray-500 font-semibold text-xs ml-2 sm:text-sm lg:text-base'>{items.artists.length >= 2 ? items.artists[0].name + ' , ' + items.artists[1].name : items.artists[0].name}</p>
                                             </div>

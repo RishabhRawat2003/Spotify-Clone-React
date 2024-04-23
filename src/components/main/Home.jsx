@@ -13,7 +13,7 @@ function Home() {
 
   if (user.length === 0) {
     let local = JSON.parse(localStorage.getItem('LikedSongs'))
-    if(local.length >=0){
+    if(local){
       let a = []
       localStorage.setItem('LikedSongs',JSON.stringify(a))
     }

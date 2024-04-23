@@ -13,7 +13,11 @@ import SongsLoading from '../loading/SongsLoading'
 function SearchPlaylistsTracks() {
     const [data, setData] = useState([])
     const [localStorageAccess, setLocalStorageAccess] = useState([])
-
+    let { tracksid } = useParams()
+    const toggle = useSelector((state) => state.sidebar.sidebarStatus)
+    const likeToggle = useSelector((state) => state.likeSong)
+    const user = useSelector((state) => state.userName.UserName)
+    const dispatch = useDispatch()
 
     function Liked(id) {
         let target = document.getElementById(id)
@@ -50,11 +54,6 @@ function SearchPlaylistsTracks() {
         }
     }
 
-    let { tracksid } = useParams()
-    const toggle = useSelector((state) => state.sidebar.sidebarStatus)
-    const likeToggle = useSelector((state) => state.likeSong)
-    const user = useSelector((state) => state.userName.UserName)
-    const dispatch = useDispatch()
 
     useEffect(() => {
         let token = apiFunc.getToken()

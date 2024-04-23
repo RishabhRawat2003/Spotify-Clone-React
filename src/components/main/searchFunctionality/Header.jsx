@@ -4,10 +4,18 @@ import { RxCross2 } from "react-icons/rx";
 import { FaRegBell } from 'react-icons/fa';
 import { BsBoxArrowUpRight } from "react-icons/bs";
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 
 function Header() {
 
     const user = useSelector((state) => state.userName.UserName)
+    const navigate = useNavigate()
+
+    function logoutHandle(){
+        navigate('/')
+        window.location.reload()
+    }
 
     function profileLogoHandle(){
         let elem = document.getElementById('logoutDiv')
@@ -39,7 +47,7 @@ function Header() {
                     <p className='text-xs my-1 flex justify-between py-1.5 hover:bg-slate-700 font-semibold cursor-default px-1 lg:text-sm'>Upgrade to Premium <BsBoxArrowUpRight size={15} className='text-white' /></p>
                     <p className='text-xs my-1 py-1.5 hover:bg-slate-700 font-semibold cursor-default px-1 lg:text-sm'>Settings</p>
                     <p className='w-full h-[1px] bg-slate-500'></p>
-                    <p className='text-xs my-1 py-1.5 hover:bg-slate-700 font-semibold cursor-default px-1 lg:text-sm'>Logout</p>
+                    <p onClick={logoutHandle} className='text-xs my-1 py-1.5 hover:bg-slate-700 font-semibold cursor-default px-1 lg:text-sm'>Logout</p>
                 </div>
             </>       
         )

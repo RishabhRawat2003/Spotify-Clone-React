@@ -4,12 +4,15 @@ import { FaRegBell } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import { BsBoxArrowUpRight } from "react-icons/bs";
+import { useNavigate } from 'react-router-dom'
 
 function Header() {
 
     const user = useSelector((state) => state.userName.UserName)
+    const navigate = useNavigate()
 
     function logoutHandle(){
+        navigate('/')
         window.location.reload()
     }
 

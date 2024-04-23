@@ -279,7 +279,7 @@ function MusicPlayer() {
                                 <input type="range" value="0" onChange={changeTime} onLoadedMetadata={onload} max='30' id='range' className="w-auto h-1 absolute hidden left-0 bg-gray-600 rounded cursor-pointer mx-[5%]" />
                             </div>
                         </div>
-                        <div id='musicPlayerDivBig' className='hidden w-full border-[1px] rounded-t-xl bg-[#121212] border-white absolute duration-200 animate-[comingup_0.2s_ease-in-out] z-30 bottom-0 h-[85%]'>
+                        <div id='musicPlayerDivBig' className='hidden w-full border-[1px] rounded-t-xl bg-[#121212] border-white absolute duration-200 animate-[comingup_0.2s_ease-in-out] z-30 bottom-[-10px] h-[85%]'>
                             <p onClick={closeMusicPlayerBig} className='text-base text-white font-bold my-5 flex justify-end mx-4 cursor-pointer'>Close</p>
                             <img src={data.album.images[0].url} alt="image" className='object-cover h-[50%] w-[80%] mx-auto' />
                             <div className='h-auto w-full flex flex-col px-10 mt-4'>

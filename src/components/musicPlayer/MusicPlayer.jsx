@@ -371,9 +371,9 @@ function MusicPlayer() {
                             </div>
                             <div className='h-auto w-full flex flex-col justify-center'>
                                 <div className='w-full mt-5 h-7 flex justify-around'>
-                                    <div className='flex items-center'><FaBackward size={25} className='text-white cursor-pointer' /></div>
+                                    <div className='flex items-center' onClick={backwardMusic}><FaBackward size={25} className='text-white cursor-pointer' /></div>
                                     <div className='h-10 w-6 flex justify-center' onClick={stopPlaySong} id='playPause'>{playPause ? <FaPlay size={25} className='text-white cursor-pointer' /> : <FaPause size={30} className='text-white cursor-pointer' />}</div>
-                                    <div className='flex items-center'><FaForward size={25} className='text-white cursor-pointer' /></div>
+                                    <div className='flex items-center' onClick={forwardMusic}><FaForward size={25} className='text-white cursor-pointer' /></div>
                                 </div>
                                 <input type="range" value="0" onChange={changeTime} onLoadedMetadata={onload} max='30' id='range2' className="w-[90%] mx-auto bg-gray-300 rounded cursor-pointer mt-5" />
                             </div>

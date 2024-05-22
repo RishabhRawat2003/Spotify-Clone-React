@@ -3,6 +3,8 @@ import  sidebarSlice from './Slices'
 import LikeSongSlice from "./LikedSlices";
 import UserSlice from "./UserSlices";
 import songSlice from "./SongSlices";
+import AllSongsSlice from "./AllSongsLists";
+
 
 const store = configureStore({
     reducer:{
@@ -10,6 +12,7 @@ const store = configureStore({
         likeSong:LikeSongSlice.reducer,
         userName:UserSlice.reducer,
         musicplayer:songSlice.reducer,
+        allSongs:AllSongsSlice.reducer
     }
 })
 

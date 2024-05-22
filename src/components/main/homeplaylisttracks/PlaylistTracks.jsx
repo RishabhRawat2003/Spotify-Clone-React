@@ -9,6 +9,7 @@ import { FaPlay } from "react-icons/fa";
 import { toggleLikedSong } from '../../../store/LikedSlices'
 import { songPlayer } from '../../../store/SongSlices'
 import SongsLoading from '../loading/SongsLoading'
+import { addList } from '../../../store/AllSongsLists'
 
 function PlaylistTracks() {
   const [data, setData] = useState([])
@@ -78,6 +79,13 @@ function PlaylistTracks() {
   useEffect(() => {
     localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
   }, [likeToggle])
+
+  useEffect(() => {
+    if (data.length > 2) {
+      const itemsToAdd = data.filter(item => item.track.preview_url).map(item => item.track);
+      dispatch(addList(itemsToAdd));
+    }
+  }, [data, dispatch]);
 
   if (user.length > 2) {
     return (

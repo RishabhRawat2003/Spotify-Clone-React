@@ -9,6 +9,7 @@ import { FaPlay } from "react-icons/fa";
 import { toggleLikedSong } from '../../../store/LikedSlices'
 import { songPlayer } from '../../../store/SongSlices'
 import SongsLoading from '../loading/SongsLoading'
+import { addList } from '../../../store/AllSongsLists'
 
 function SidebarArtistTracks() {
     const [data, setData] = useState([])
@@ -54,7 +55,6 @@ function SidebarArtistTracks() {
         let token = apiFunc.getToken()
         token.then((val) => {
             let trackPoint = trackid
-            console.log(trackPoint);
             let track = apiFunc.getArtistsTracks(val, trackPoint)
             track.then((val) => {
                 let trackList = val.tracks
@@ -75,6 +75,14 @@ function SidebarArtistTracks() {
     useEffect(() => {
         localStorage.setItem('LikedSongs', JSON.stringify(likeToggle))
     }, [likeToggle])
+
+    useEffect(() => {
+        if (data.length > 2) {
+          const itemsToAdd = data.filter(item => item.preview_url).map(item => item);
+          dispatch(addList(itemsToAdd));
+        }
+      }, [data, dispatch]);
+    
 
     return (
         <div className={toggle ? 'sidebarArtists bg-[#121212] text-white rounded-md h-[98.7%] w-full flex flex-col mt-2 mr-1 ml-[84px] overflow-y-scroll' : 'sidebarArtists bg-[#121212] rounded-md flex flex-col text-white h-[98.7%] w-full mt-2 mx-1 overflow-y-scroll'}>

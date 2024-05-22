@@ -13,12 +13,15 @@ import { TbDeviceMobileUp } from "react-icons/tb";
 
 function MusicPlayer() {
     const [data, setData] = useState()
-    const [localStorageAccess, setLocalStorageAccess] = useState([])
     const [volume, setVolume] = useState(false)
+    const [currentMusicIndex, setCurrentMusicIndex] = useState()
+    const [backAndForwardArray, setBackAndForwardArray] = useState([])
+    const [nextSong, setNextSong] = useState('')
     const [playPause, setPlayPause] = useState(false)
     const [likeState, setLikeState] = useState(false)
     const music = useSelector((state) => state.musicplayer.songId)
     const likeToggle = useSelector((state) => state.likeSong)
+    const AllSongsLists = useSelector((state) => state.allSongs)
     const dispatch = useDispatch()
 
 
@@ -194,9 +197,33 @@ function MusicPlayer() {
         }
     }
 
+    function forwardMusic() {
+        if (music.length) {
+            let index = currentMusicIndex + 1
+            index < backAndForwardArray.length - 1 ? setCurrentMusicIndex(currentMusicIndex + 1) : setCurrentMusicIndex(-1)
+            let musicIndex = backAndForwardArray[index]
+            setNextSong(musicIndex)
+        }
+    }
+
+    function backwardMusic() {
+        if (music.length) {
+            let index = currentMusicIndex===0 ? backAndForwardArray.length - 1 : currentMusicIndex - 1
+            index === backAndForwardArray.length - 1 ? setCurrentMusicIndex(backAndForwardArray.length - 1) : setCurrentMusicIndex(currentMusicIndex - 1)
+            let musicIndex = backAndForwardArray[index]
+            setNextSong(musicIndex)
+        }
+    }
+
+
+    // function backAndForwardFunc() {
+    //     let index = backAndForwardArray.indexOf(music)
+    //     setCurrentMusicIndex(index)
+    //     // console.log(backAndForwardArray);
+    // }
+
     useEffect(() => {
         let local = JSON.parse(localStorage.getItem('LikedSongs'))
-        setLocalStorageAccess(local)
         if (local && local.length >= 1) {
             local.map((items) => {
                 dispatch(toggleLikedSong(items))
@@ -212,6 +239,7 @@ function MusicPlayer() {
 
     useEffect(() => {
         if (music.length > 2) {
+            // token functionality starts
             let token = apiFunc.getToken()
             token.then((val) => {
                 let trackid = 'https://api.spotify.com/v1/tracks/' + music
@@ -225,6 +253,20 @@ function MusicPlayer() {
                     }, 50)
                 })
             })
+            // token functionality ends
+
+            // back and forward song functionality starts
+            let allSongsIdArray = []
+            AllSongsLists.map((items) => {
+                allSongsIdArray.push(items.id)
+            })
+            let currentIndex = allSongsIdArray.indexOf(music)
+            setCurrentMusicIndex(currentIndex)
+            setBackAndForwardArray(allSongsIdArray)
+            // backAndForwardFunc()
+            // back and forward song functionality ends
+
+            //localstorage functionality starts
             let local = JSON.parse(localStorage.getItem('LikedSongs'))
             let index = local.indexOf(music)
             if (index >= 0) {
@@ -232,8 +274,49 @@ function MusicPlayer() {
             } else {
                 setLikeState(false)
             }
+            //localstorage functionality ends
         }
     }, [music])
+
+    useEffect(() => {
+        if (nextSong.length > 2) {
+            // token functionality starts
+            let token = apiFunc.getToken()
+            token.then((val) => {
+                let trackid = 'https://api.spotify.com/v1/tracks/' + nextSong
+                let musicDetails = apiFunc.getTrack(val, trackid)
+                musicDetails.then((val) => {
+                    setData(val)
+                    setTimeout(() => {
+                        setPlayPause(false)
+                        playSong()
+                        rangeUpdate()
+                    }, 50)
+                })
+            })
+            // token functionality ends
+
+            // // back and forward song functionality starts
+            // let allSongsIdArray = []
+            // AllSongsLists.map((items) => {
+            //     allSongsIdArray.push(items.id)
+            // })
+            // setBackAndForwardArray(allSongsIdArray)
+            // backAndForwardFunc()
+            // // console.log(backAndForwardArray);
+            // // back and forward song functionality ends
+
+            //localstorage functionality starts
+            let local = JSON.parse(localStorage.getItem('LikedSongs'))
+            let index = local.indexOf(nextSong)
+            if (index >= 0) {
+                setLikeState(true)
+            } else {
+                setLikeState(false)
+            }
+            //localstorage functionality ends
+        }
+    }, [nextSong])
 
     return (
         <>
@@ -260,9 +343,9 @@ function MusicPlayer() {
                             </div>
                             <div className='hidden h-full w-[38%] sm:flex sm:flex-col md:w-[30%] lg:items-center lg:w-[35%] xl:w-[40%]'>
                                 <div className='w-full mt-5 h-7 flex justify-around lg:w-[80%]'>
-                                    <div className='flex items-center'><FaBackward size={25} className='text-white cursor-pointer' /></div>
+                                    <div className='flex items-center' onClick={backwardMusic}><FaBackward size={25} className='text-white cursor-pointer' /></div>
                                     <div className='mr-3' onClick={stopPlaySong} id='playPause'>{playPause ? <FaPlay size={25} className='text-white cursor-pointer' /> : <FaPause size={30} className='text-white cursor-pointer' />}</div>
-                                    <div className='flex items-center'><FaForward size={25} className='text-white cursor-pointer' /></div>
+                                    <div className='flex items-center' onClick={forwardMusic}><FaForward size={25} className='text-white cursor-pointer' /></div>
                                 </div>
                                 <input type="range" value="0" onChange={changeTime} onLoadedMetadata={onload} max='30' id='range' className="w-full left-0 bg-gray-300 rounded cursor-pointer mt-4 lg:w-[80%]" />
                             </div>
